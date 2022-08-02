@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxNet.Hotel", "FoxNet.Hotel\FoxNet.Hotel.csproj", "{53552CCB-B1FA-4573-944D-57B328C2BB48}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxNet.Hotel.BO", "FoxNet.Hotel.BO\FoxNet.Hotel.BO.csproj", "{4F624F07-214E-4366-AAD8-C94CF02D5B3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C81A7028-A9D1-49DF-861C-482C60A68D0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxNet.Hotel.BO.Test", "FoxNet.Hotel.BO.Test\FoxNet.Hotel.BO.Test.csproj", "{5468DB25-5670-40A8-8083-D951D35140CD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxNet.Hotel.Service", "FoxNet.Hotel.Service\FoxNet.Hotel.Service.csproj", "{B97B484C-6900-4001-9073-460CCEA0A697}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoxNet.Hotel.Service.Test", "FoxNet.Hotel.Service.Test\FoxNet.Hotel.Service.Test.csproj", "{60566899-E225-4271-B119-B5C4E7760778}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53552CCB-B1FA-4573-944D-57B328C2BB48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53552CCB-B1FA-4573-944D-57B328C2BB48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53552CCB-B1FA-4573-944D-57B328C2BB48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53552CCB-B1FA-4573-944D-57B328C2BB48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F624F07-214E-4366-AAD8-C94CF02D5B3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F624F07-214E-4366-AAD8-C94CF02D5B3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F624F07-214E-4366-AAD8-C94CF02D5B3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F624F07-214E-4366-AAD8-C94CF02D5B3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5468DB25-5670-40A8-8083-D951D35140CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5468DB25-5670-40A8-8083-D951D35140CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5468DB25-5670-40A8-8083-D951D35140CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5468DB25-5670-40A8-8083-D951D35140CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B97B484C-6900-4001-9073-460CCEA0A697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B97B484C-6900-4001-9073-460CCEA0A697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B97B484C-6900-4001-9073-460CCEA0A697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B97B484C-6900-4001-9073-460CCEA0A697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60566899-E225-4271-B119-B5C4E7760778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60566899-E225-4271-B119-B5C4E7760778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60566899-E225-4271-B119-B5C4E7760778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60566899-E225-4271-B119-B5C4E7760778}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5468DB25-5670-40A8-8083-D951D35140CD} = {C81A7028-A9D1-49DF-861C-482C60A68D0B}
+		{60566899-E225-4271-B119-B5C4E7760778} = {C81A7028-A9D1-49DF-861C-482C60A68D0B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED636F48-39B8-4077-88A1-8D7AED1229AD}
+	EndGlobalSection
+EndGlobal
