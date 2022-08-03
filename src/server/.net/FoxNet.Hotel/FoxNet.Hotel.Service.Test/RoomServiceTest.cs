@@ -9,7 +9,7 @@ namespace FoxNet.Hotel.Service.Test
     [TestClass]
     public class RoomServiceTest
     {
-        [TestMethod]
+        /*[TestMethod]
         public void AddRoomTest()
         {
             var db = new DbStorage.DbStorage();
@@ -174,6 +174,6 @@ namespace FoxNet.Hotel.Service.Test
 
             db.Database.EnsureDeleted();
             db.Dispose();
-        }
+        }*/
     }
 }

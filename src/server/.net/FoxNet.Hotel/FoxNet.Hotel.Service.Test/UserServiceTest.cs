@@ -1,6 +1,7 @@
 using FoxNet.Hotel.Service;
 using FoxNet.Hotel.BO;
 using System;
+using FoxNet.Hotel.Common;
 
 namespace FoxNet.Hotel.Service.Test
 {
@@ -10,204 +11,194 @@ namespace FoxNet.Hotel.Service.Test
         [TestMethod]
         public void AddUserTest()
         {
-            var db = new DbStorage.DbStorage();
-            var userService = new UserService(db);
+            using (var db = DbStorage.GetTestInstance())
+            {
+                var userService = new UserService(db);
 
-            db.Database.EnsureCreated();
+                userService.AddUser(new DTO.UserData()
+                {
+                    Name = "Jan",
+                    Surname = "Kowalski",
+                    Birth = new DateTime(1920, 1, 14),
+                    AccountType = DTO.Type.Worker,
+                    Money = 700.89F,
+                    Password = "123",
+                    Phone = 123456689
+                });
 
-            userService.AddUser(new DTO.UserData() 
-            { 
-                Name = "Jan",
-                Surname = "Kowalski",
-                Birth = new DateTime(1920, 1, 14),
-                AccountType = DTO.Type.Worker,
-                Money = 700.89F,
-                Password = "123",
-                Phone = 123456689
-            });
-
-            var users = db.Users.ToList();
-
-            Assert.AreEqual(1, users.Count);
-
-            db.Database.EnsureDeleted();
-            db.Dispose();
+                var users = db.Users.ToList();
+                Assert.AreEqual(1, users.Count);
+            }
         }
 
         [TestMethod]
         public void GetUserTest() 
         {
-            var db = new DbStorage.DbStorage();
-            var userService = new UserService(db);
+            using (var db = DbStorage.GetTestInstance())
+            {
+                var userService = new UserService(db);
 
-            db.Database.EnsureCreated();
+                var user = userService.AddUser(new DTO.UserData()
+                {
+                    Name = "Jan",
+                    Surname = "Kowalski",
+                    Birth = new DateTime(1920, 1, 14),
+                    AccountType = DTO.Type.Worker,
+                    Money = 700.89F,
+                    Password = "123",
+                    Phone = 123456689
+                });
 
-            var user1 = userService.AddUser(new DTO.UserData() 
-            { 
-                Name = "Jan",
-                Surname = "Kowalski",
-                Birth = new DateTime(1920, 1, 14),
-                AccountType = DTO.Type.Worker,
-                Money = 700.89F,
-                Password = "123",
-                Phone = 123456689
-            });
+                var foundUser = userService.GetUser(user);
 
-            var user = userService.GetUser(user1);
-
-            Assert.AreEqual("Jan", user.Name);
-
-            db.Database.EnsureDeleted();
-            db.Dispose();
+                Assert.AreEqual("Jan", foundUser.Name);
+            }
         }
 
         [TestMethod]
         public void GetUsersTest()
         {
-            var db = new DbStorage.DbStorage();
-            var userService = new UserService(db);
-
-            db.Database.EnsureCreated();
-
-            var user1 = userService.AddUser(new DTO.UserData()
+            using (var db = DbStorage.GetTestInstance())
             {
-                Name = "Pat",
-                Surname = "Czech",
-                Birth = new DateTime(1999, 11, 19),
-                AccountType = DTO.Type.Client,
-                Money = 11.89F,
-                Password = "412",
-                Phone = 765456689
-            });
-            var user2 = userService.AddUser(new DTO.UserData()
-            {
-                Name = "Jan",
-                Surname = "Kowalski",
-                Birth = new DateTime(1920, 1, 14),
-                AccountType = DTO.Type.Worker,
-                Money = 700.89F,
-                Password = "123",
-                Phone = 123456689
-            });
+                var userService = new UserService(db);
 
-            db.SaveChanges();
+                db.Database.EnsureCreated();
 
-            var users = userService.GetUsers();
+                // Adding diffrent users
+                userService.AddUser(new DTO.UserData()
+                {
+                    Name = "Pat",
+                    Surname = "Czech",
+                    Birth = new DateTime(1999, 11, 19),
+                    AccountType = DTO.Type.Client,
+                    Money = 11.89F,
+                    Password = "412",
+                    Phone = 765456689
+                });
+                userService.AddUser(new DTO.UserData()
+                {
+                    Name = "Jan",
+                    Surname = "Kowalski",
+                    Birth = new DateTime(1920, 1, 14),
+                    AccountType = DTO.Type.Worker,
+                    Money = 700.89F,
+                    Password = "123",
+                    Phone = 123456689
+                });
 
-            Assert.AreEqual(2, users.Count);
+                db.SaveChanges();
 
-            db.Database.EnsureDeleted();
-            db.Dispose();
+                var users = userService.GetUsers();
+
+                Assert.AreEqual(2, users.Count);
+            }
         }
 
         [TestMethod]
         public void EditUserTest() 
         {
-            var db = new DbStorage.DbStorage();
-            var userService = new UserService(db);
-
-            db.Database.EnsureCreated();
-
-            var basicUser = userService.AddUser(new DTO.UserData()
+            using (var db = DbStorage.GetTestInstance())
             {
-                Name = "Jan",
-                Surname = "Kowalski",
-                Password = "123",
-            });
+                var userService = new UserService(db);
 
-            db.SaveChanges();
+                db.Database.EnsureCreated();
 
-            var user = userService.GetUser(basicUser);
+                var basicUser = userService.AddUser(new DTO.UserData()
+                {
+                    Name = "Jan",
+                    Surname = "Kowalski",
+                    Password = "123",
+                });
 
-            user.Name = "Marcel";
-            userService.EditUser(user);
+                db.SaveChanges();
 
-            db.SaveChanges();
+                var user = userService.GetUser(basicUser);
 
-            var editedUser = userService.GetUser(basicUser);
+                user.Name = "Marcel";
+                userService.EditUser(user);
 
-            Assert.AreEqual("Marcel", editedUser.Name);
+                db.SaveChanges();
 
-            db.Database.EnsureDeleted();
-            db.Dispose();
+                var editedUser = userService.GetUser(basicUser);
+
+                Assert.AreEqual("Marcel", editedUser.Name);
+            }
         }
 
         [TestMethod]
         public void ManageMoneyTest()
         {
-            var db = new DbStorage.DbStorage();
-            var userService = new UserService(db);
-
-            var user = userService.AddUser(new DTO.UserData()
+            using (var db = DbStorage.GetTestInstance())
             {
-                Name = "Pat",
-                Surname = "Czech",
-                Money = 11.89F,
-            });
-            db.SaveChanges();
+                var userService = new UserService(db);
 
-            var user1 = userService.GetUser(user);
+                var user = userService.AddUser(new DTO.UserData()
+                {
+                    Name = "Pat",
+                    Surname = "Czech",
+                    Money = 11.89F,
+                });
+                db.SaveChanges();
 
-            Assert.AreEqual(11.89F, user1.Money);
+                var user1 = userService.GetUser(user);
 
-            user1.Money += 30.48F;
+                Assert.AreEqual(11.89F, user1.Money);
 
-            userService.ManageMoney(user1);
+                user1.Money += 30.48F;
 
-            db.SaveChanges();
+                userService.ManageMoney(user1);
 
-            user1 = userService.GetUser(user);
+                db.SaveChanges();
 
-            Assert.AreEqual(42.37F, user1.Money);
+                user1 = userService.GetUser(user);
 
-            db.Database.EnsureDeleted();
-            db.Dispose();
+                Assert.AreEqual(42.37F, user1.Money);
+            }
         }
 
         [TestMethod]
         public void DeleteUserTest()
         {
-            var db = new DbStorage.DbStorage();
-            var userService = new UserService(db);
-
-            db.Database.EnsureCreated();
-
-            var user1 = userService.AddUser(new DTO.UserData()
+            using (var db = DbStorage.GetTestInstance())
             {
-                Name = "Pat",
-                Surname = "Czech",
-                Birth = new DateTime(1999, 11, 19),
-                AccountType = DTO.Type.Client,
-                Money = 11.89F,
-                Password = "412",
-                Phone = 765456689
-            });
-            var user2 = userService.AddUser(new DTO.UserData()
-            {
-                Name = "Jan",
-                Surname = "Kowalski",
-                Birth = new DateTime(1920, 1, 14),
-                AccountType = DTO.Type.Worker,
-                Money = 700.89F,
-                Password = "123",
-                Phone = 123456689
-            });
+                var userService = new UserService(db);
 
-            db.SaveChanges();
+                db.Database.EnsureCreated();
 
-            var users = userService.GetUsers();
-            
-            Assert.AreEqual(2, users.Count);
+                var user1 = userService.AddUser(new DTO.UserData()
+                {
+                    Name = "Pat",
+                    Surname = "Czech",
+                    Birth = new DateTime(1999, 11, 19),
+                    AccountType = DTO.Type.Client,
+                    Money = 11.89F,
+                    Password = "412",
+                    Phone = 765456689
+                });
+                var user2 = userService.AddUser(new DTO.UserData()
+                {
+                    Name = "Jan",
+                    Surname = "Kowalski",
+                    Birth = new DateTime(1920, 1, 14),
+                    AccountType = DTO.Type.Worker,
+                    Money = 700.89F,
+                    Password = "123",
+                    Phone = 123456689
+                });
 
-            userService.DeleteUser(user1);
-            db.SaveChanges();
+                db.SaveChanges();
 
-            users = userService.GetUsers();
+                var users = userService.GetUsers();
 
-            Assert.AreEqual(1, users.Count);
+                Assert.AreEqual(2, users.Count);
 
-            db.Database.EnsureDeleted();
-            db.Dispose();
+                userService.DeleteUser(user1);
+                db.SaveChanges();
+
+                users = userService.GetUsers();
+
+                Assert.AreEqual(1, users.Count);
+            }
         }
     }
 }

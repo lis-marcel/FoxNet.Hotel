@@ -9,7 +9,7 @@ namespace FoxNet.Hotel.Service.Test
     [TestClass]
     public class ReservationsServiceTest
     {
-        [TestMethod]
+        /*[TestMethod]
         public void MakeReservationTest()
         {
             var db = new DbStorage.DbStorage();
@@ -99,6 +99,6 @@ namespace FoxNet.Hotel.Service.Test
 
             db.Database.EnsureDeleted();
             db.Dispose();
-        }
+        }*/
     }
 }

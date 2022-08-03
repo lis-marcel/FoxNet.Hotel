@@ -13,12 +13,22 @@ namespace FoxNet.Hotel.Common
         public DbSet<User>? Users { get; set; }
         public DbSet<Room>? Rooms { get; set; }
         public DbSet<Reservation>? Reservations { get; set; }
-        public string DbPath { get; }
+        public string DbPath { get; set; }
+        public bool AutoRemoveDb { get; set; }
 
         public DbStorage()
         {
-            var path = @"C:\Users\lisma\.FoxNet\Hotel\src\server\.net\FoxNet.Hotel\DB";
-            DbPath = Path.Combine(path, "hotel.sqlite");
+            DbPath = Path.Combine(Environment.CurrentDirectory, "hotel.sqlite");
+        }
+
+        public override void Dispose()
+        {
+            if (AutoRemoveDb)
+            {
+                Database.EnsureDeleted();
+            }
+
+            base.Dispose();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -27,6 +37,16 @@ namespace FoxNet.Hotel.Common
         public static DbStorage GetDefault()
         {
             var db = new DbStorage();
+            db.Database.EnsureCreated();
+
+            return db;
+        }
+
+        public static DbStorage GetTestInstance()
+        {
+            var db = new DbStorage();
+            db.DbPath = Path.Combine(Environment.CurrentDirectory, "test.sqlite");
+            db.AutoRemoveDb = true;
             db.Database.EnsureCreated();
 
             return db;

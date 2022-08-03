@@ -18,7 +18,7 @@ namespace FoxNet.Hotel.BO.Test
             Booked = true
         };
 
-        [TestMethod]
+        /*[TestMethod]
         public void CheckRoomNumber()
         {
             var db = new DbStorage.DbStorage();
@@ -76,6 +76,6 @@ namespace FoxNet.Hotel.BO.Test
             Assert.AreEqual(false, foundElement.Booked);
 
             db.Database.EnsureDeleted();
-        }
+        }*/
     }
 }

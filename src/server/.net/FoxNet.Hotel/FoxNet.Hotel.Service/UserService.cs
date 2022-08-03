@@ -20,14 +20,15 @@ namespace FoxNet.Hotel.Service
 
         public int AddUser(UserData userData)
         {
-            var u = new User() { 
+            var u = new User()
+            {
                 Name = userData.Name,
                 Surname = userData.Surname,
                 Birth = userData.Birth,
                 AccountType = (Type)userData.AccountType,
                 Password = userData.Password,
                 Money = userData.Money,
-                Phone = userData.Phone 
+                Phone = userData.Phone
             };
 
             var userId = db.Users.Add(u);
@@ -80,7 +81,7 @@ namespace FoxNet.Hotel.Service
         }
 
         public void ManageMoney(UserData userData) 
-        { 
+        {
             var user = db.Users.SingleOrDefault(u => u.Id == userData.Id);
 
             if (user != null)
