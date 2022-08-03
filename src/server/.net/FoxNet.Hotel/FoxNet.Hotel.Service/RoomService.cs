@@ -5,21 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FoxNet.Hotel.Service.DTO;
+using FoxNet.Hotel.Common;
 
 namespace FoxNet.Hotel.Service
 {
     public class RoomService
     {
-        public RoomService() { }
-        public RoomService(DbStorage.DbStorage db) { }
+        private DbStorage db;
+        public RoomService(DbStorage db) 
+        {
+            this.db = db;
+        }
 
         public int AddRoom(RoomData roomData)
         {
-            var db = new DbStorage.DbStorage();
-
-            db.Database.EnsureCreated();
-
-            var room = new Room()
+            var r = new Room()
             {
                 Number = roomData.Number,
                 BedsAmount = roomData.BedsAmount,
@@ -28,126 +28,65 @@ namespace FoxNet.Hotel.Service
                 Price = roomData.Price,
             };
 
-            var roomId = db.Rooms.Add(room);
+            var roomId = db.Rooms.Add(r);
             db.SaveChanges();
-
-            db.Dispose();
 
             return roomId.Entity.Id;
         }
 
         public void EditRoom(RoomData roomData)
         {
-            var db = new DbStorage.DbStorage();
-            var room = db.Rooms.SingleOrDefault(r => r.Id == roomData.Id);
+            var room = db.Rooms.Single(r => r.Id == roomData.Id);
 
-            db.Database.EnsureCreated();
+            room.Number = roomData.Number;
+            room.BedsAmount = roomData.BedsAmount;
+            room.Price = roomData.Price;
 
-            if (room != null)
-            {
-                room.Number = roomData.Number;
-                room.BedsAmount = roomData.BedsAmount;
-                room.Price = roomData.Price;
-
-                db.SaveChanges();
-            }
-
-            else db.SaveChanges();
-
-            db.Dispose();
+            db.SaveChanges();
         }
 
         public RoomData GetRoom(int roomId)
         {
-            var db = new DbStorage.DbStorage();
-            var room = db.Rooms.SingleOrDefault(r => r.Id == roomId);
+            var room = db.Rooms.Single(r => r.Id == roomId);
 
-            db.Database.EnsureCreated();
-
-            if (room != null)
+            return new RoomData()
             {
-                var r = new RoomData()
-                {
-                    Id = room.Id,
-                    BedsAmount = room.BedsAmount,
-                    Number = room.Number,
-                    Bathroom = room.Bathroom,
-                    Price = room.Price,
-                    Booked = room.Booked
-                };
-
-                db.Dispose();
-                return r;
-            }
-
-            else
-            {
-                db.Dispose();
-                return null;
-            }
+                Id = room.Id,
+                BedsAmount = room.BedsAmount,
+                Number = room.Number,
+                Bathroom = room.Bathroom,
+                Price = room.Price,
+                Booked = room.Booked
+            };
         }
 
         public IList<RoomData> GetRooms()
         {
-            var db = new DbStorage.DbStorage();
-            var rooms = new List<RoomData>();
-
-            db.Database.EnsureCreated();
-
-            foreach (var r in db.Rooms)
+            return db.Rooms.Select(r => new RoomData()
             {
-                var room = new RoomData()
-                {
-                    Id = r.Id,
-                    BedsAmount = r.BedsAmount,
-                    Number = r.Number,
-                    Booked = r.Booked,
-                    Price = r.Price,
-                    Bathroom = r.Bathroom,
-                };
-
-                rooms.Add(room);
-            }
-
-            db.Dispose();
-
-            return rooms;
+                Id = r.Id,
+                BedsAmount = r.BedsAmount,
+                Number = r.Number,
+                Booked = r.Booked,
+                Price = r.Price,
+                Bathroom = r.Bathroom,
+            }).ToList();
         }
 
         public void SetRoomState(RoomData roomData)
         {
-            var db = new DbStorage.DbStorage();
-            var room = db.Rooms.SingleOrDefault(r => r.Id == roomData.Id);
+            var room = db.Rooms.Single(r => r.Id == roomData.Id);
 
-            db.Database.EnsureCreated();
-
-            if (room != null)
-            {
-                room.Booked = roomData.Booked;
-                db.SaveChanges();
-            }
-
-            else db.SaveChanges();
-
-            db.Dispose();
+            room.Booked = roomData.Booked;
+            db.SaveChanges();
         }
 
         public void DeleteRoom(int roomId)
         {
-            var db = new DbStorage.DbStorage();
-            var room = db.Rooms.SingleOrDefault(r => r.Id == roomId);
+            var room = db.Rooms.Single(r => r.Id == roomId);
 
-            db.Database.EnsureCreated();
-
-            if (room != null)
-            {
-                db.Rooms.Remove(room);
-                db.SaveChanges();
-            }
-
-            else db.SaveChanges();
-
-            db.Dispose();
+            db.Rooms.Remove(room);
+            db.SaveChanges();
         }
     }
 }

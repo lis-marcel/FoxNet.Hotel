@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace FoxNet.Hotel.DbStorage
+namespace FoxNet.Hotel.Common
 {
     public class DbStorage : DbContext
     {
@@ -23,5 +23,13 @@ namespace FoxNet.Hotel.DbStorage
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite($"Data source = {DbPath}");
+
+        public static DbStorage GetDefault()
+        {
+            var db = new DbStorage();
+            db.Database.EnsureCreated();
+
+            return db;
+        }
     }
 }
