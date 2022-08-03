@@ -4,20 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FoxNet.Hotel.BO;
+using FoxNet.Hotel.Common;
 using FoxNet.Hotel.Service.DTO;
 
 namespace FoxNet.Hotel.Service
 {
     public class ReservationService
     {
-        public ReservationService() { }
-        public ReservationService(DbStorage.DbStorage db) { }
+        private DbStorage db;
+        public ReservationService(DbStorage db) 
+        {
+            this.db = db;
+        }
 
         public int MakeReservation(ReservationData reservationData)
         {
-            var db = new DbStorage.DbStorage();
-            db.Database.EnsureCreated();
-
             var r = new Reservation()
             {
                 FirstDay = reservationData.FirstDay,
@@ -29,27 +30,15 @@ namespace FoxNet.Hotel.Service
             var reservation = db.Reservations.Add(r);
             db.SaveChanges();
 
-            db.Dispose();
-
             return reservation.Entity.Id;
         }
 
         public void DeleteReservation(int reservationId)
         {
-            var db = new DbStorage.DbStorage();
-            db.Database.EnsureCreated();
+            var reservation = db.Reservations.Single(r => r.Id == reservationId);
 
-            var reservation = db.Reservations.SingleOrDefault(r => r.Id == reservationId);
-
-            if (reservation != null)
-            {
-                db.Reservations.Remove(reservation);
-                db.SaveChanges();
-            }
-
-            else db.SaveChanges();
-
-            db.Dispose();
+            db.Reservations.Remove(reservation);
+            db.SaveChanges();
         }
     }
 }
