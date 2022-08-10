@@ -33,6 +33,32 @@ namespace FoxNet.Hotel.Service
             return reservation.Entity.Id;
         }
 
+        public ReservationData GetReservation(int reservationId)
+        {
+            var reservation = db.Reservations.Single(r => r.Id == reservationId);
+
+            return new ReservationData()
+            {
+                Id = reservation.Id,
+                FirstDay = reservation.FirstDay,
+                LastDay = reservation.LastDay,
+                RoomId = reservation.RoomId,
+                UserId = reservation.UserId
+            };
+        }
+
+        public IList<ReservationData> GetReservations()
+        {
+            return (IList<ReservationData>)db.Reservations.Select(r => new ReservationData()
+            {
+                Id = r.Id,
+                FirstDay = r.FirstDay,
+                RoomId=r.RoomId,
+                LastDay=r.LastDay,
+                UserId = r.UserId
+            });
+        }
+
         public void DeleteReservation(int reservationId)
         {
             var reservation = db.Reservations.Single(r => r.Id == reservationId);
