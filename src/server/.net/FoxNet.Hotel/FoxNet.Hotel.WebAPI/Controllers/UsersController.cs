@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using FoxNet.Hotel;
 using FoxNet.Hotel.Common;
 using FoxNet.Hotel.Service;
 using FoxNet.Hotel.Service.DTO;
 
-namespace FoxNet.Hotel.WebAPI
+namespace FoxNet.Hotel.WebAPI.Controllers
 {
     [ApiController]
     public class UsersController : ControllerBase
