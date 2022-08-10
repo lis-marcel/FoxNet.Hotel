@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FoxNet.Hotel.Service;
+using FoxNet.Hotel.BO;
+using System;
+using FoxNet.Hotel.Common;
 
 namespace FoxNet.Hotel.Service.Test
 {
@@ -12,168 +11,150 @@ namespace FoxNet.Hotel.Service.Test
         [TestMethod]
         public void AddRoomTest()
         {
-            var db = new DbStorage.DbStorage();
-            db.Database.EnsureCreated();
-
-            var roomService = new RoomService(db);
-
-            roomService.AddRoom(new DTO.RoomData()
+            using (var db = DbStorage.GetTestInstance())
             {
-                Number = 111,
-                BedsAmount = 3, 
-                Price = 300.45F,
-                Bathroom = true,
-                Booked = false
-            });
-            db.SaveChanges();
+                var roomService = new RoomService(db);
 
-            var addedRoom = db.Rooms.ToList();
+                roomService.AddRoom(new DTO.RoomData()
+                {
+                    Number = 111,
+                    BedsAmount = 3,
+                    Price = 300.45F,
+                    Bathroom = true,
+                    Booked = false
+                });
+                db.SaveChanges();
 
-            Assert.AreEqual(111, addedRoom[0].Number);
+                var addedRoom = db.Rooms.ToList();
 
-            db.Database.EnsureDeleted();
-            db.Dispose();
+                Assert.AreEqual(111, addedRoom[0].Number);
+            }
         }
 
         [TestMethod]
         public void EditRoomTest()
         {
-            var db = new DbStorage.DbStorage();
-            db.Database.EnsureCreated();
-
-            var roomService = new RoomService(db);
-
-            var roomId = roomService.AddRoom(new DTO.RoomData()
+            using (var db = DbStorage.GetTestInstance())
             {
-                Number = 111,
-                BedsAmount = 3,
-                Price = 300.45F,
-                Bathroom = true,
-                Booked = false
-            });
+                var roomService = new RoomService(db);
 
-            var room = roomService.GetRoom(roomId);
-            room.Booked = true;
+                var roomId = roomService.AddRoom(new DTO.RoomData()
+                {
+                    Number = 111,
+                    BedsAmount = 3,
+                    Price = 300.45F,
+                    Bathroom = true,
+                    Booked = false
+                });
 
-            roomService.EditRoom(room);
+                var room = roomService.GetRoom(roomId);
+                room.Booked = true;
 
-            Assert.AreEqual(true, room.Booked);
+                roomService.EditRoom(room);
 
-            db.Database.EnsureDeleted();
-            db.Dispose();
+                Assert.AreEqual(true, room.Booked);
+            }
         }
 
         [TestMethod]
         public void GetRoomTest()
         {
-            var db = new DbStorage.DbStorage();
-            db.Database.EnsureCreated();
-
-            var roomService = new RoomService(db);
-
-            var addedRoomId = roomService.AddRoom(new DTO.RoomData()
+            using (var db = DbStorage.GetTestInstance())
             {
-                Number = 111,
-                BedsAmount = 3,
-                Price = 300.45F,
-                Bathroom = true,
-                Booked = false
-            });
+                var roomService = new RoomService(db);
 
-            var readedRoom = roomService.GetRoom(addedRoomId);
+                var addedRoomId = roomService.AddRoom(new DTO.RoomData()
+                {
+                    Number = 111,
+                    BedsAmount = 3,
+                    Price = 300.45F,
+                    Bathroom = true,
+                    Booked = false
+                });
 
-            Assert.AreEqual(300.45F, readedRoom.Price);
+                var readedRoom = roomService.GetRoom(addedRoomId);
 
-            db.Database.EnsureDeleted();
-            db.Dispose();
+                Assert.AreEqual(300.45F, readedRoom.Price);
+            }
         }
 
         [TestMethod]
         public void GetRoomsTest()
         {
-            var db = new DbStorage.DbStorage();
-            db.Database.EnsureCreated();
-
-            var roomService = new RoomService(db);
-
-            roomService.AddRoom(new DTO.RoomData()
+            using (var db = DbStorage.GetTestInstance())
             {
-                Number = 111,
-                BedsAmount = 3,
-                Price = 300.45F,
-                Bathroom = true,
-                Booked = false
-            });
-            roomService.AddRoom(new DTO.RoomData()
-            {
-                Number = 111,
-                BedsAmount = 3,
-                Price = 300.45F,
-                Bathroom = true,
-                Booked = false
-            });
+                var roomService = new RoomService(db);
 
-            var roomsList = roomService.GetRooms();
+                roomService.AddRoom(new DTO.RoomData()
+                {
+                    Number = 111,
+                    BedsAmount = 3,
+                    Price = 300.45F,
+                    Bathroom = true,
+                    Booked = false
+                });
+                roomService.AddRoom(new DTO.RoomData()
+                {
+                    Number = 111,
+                    BedsAmount = 3,
+                    Price = 300.45F,
+                    Bathroom = true,
+                    Booked = false
+                });
 
-            Assert.AreEqual(2, roomsList.Count);
+                var roomsList = roomService.GetRooms();
 
-            db.Database.EnsureDeleted();
-            db.Dispose();
+                Assert.AreEqual(2, roomsList.Count);
+            }
         }
 
         [TestMethod]
         public void SetRoomStateTest()
         {
-            var db = new DbStorage.DbStorage();
-            db.Database.EnsureCreated();
-
-            var roomService = new RoomService(db);
-
-            var addedRoomId = roomService.AddRoom(new DTO.RoomData()
+            using (var db = DbStorage.GetTestInstance())
             {
-                Number = 111,
-                BedsAmount = 3,
-                Price = 300.45F,
-                Bathroom = true,
-                Booked = false
-            });
+                var roomService = new RoomService(db);
 
-            var room = roomService.GetRoom(addedRoomId);
-            room.Booked = true;
-            roomService.SetRoomState(room);
-            db.SaveChanges();
+                var addedRoomId = roomService.AddRoom(new DTO.RoomData()
+                {
+                    Number = 111,
+                    BedsAmount = 3,
+                    Price = 300.45F,
+                    Bathroom = true,
+                    Booked = false
+                });
 
-            Assert.AreEqual(true, room.Booked);
+                var room = roomService.GetRoom(addedRoomId);
+                room.Booked = true;
+                roomService.SetRoomState(room);
+                db.SaveChanges();
 
-            db.Database.EnsureDeleted();
-            db.Dispose();
+                Assert.AreEqual(true, room.Booked);
+            }
         }
 
         [TestMethod]
         public void DeleteRoomTest()
         {
-            var db = new DbStorage.DbStorage();
-            db.Database.EnsureCreated();
-
-            var roomService = new RoomService(db);
-
-            var addedRoomId = roomService.AddRoom(new DTO.RoomData()
+            using (var db = DbStorage.GetTestInstance())
             {
-                Number = 111,
-                BedsAmount = 3,
-                Price = 300.45F,
-                Bathroom = true,
-                Booked = false
-            });
+                var roomService = new RoomService(db);
 
-            roomService.DeleteRoom(addedRoomId);
+                var addedRoomId = roomService.AddRoom(new DTO.RoomData()
+                {
+                    Number = 111,
+                    BedsAmount = 3,
+                    Price = 300.45F,
+                    Bathroom = true,
+                    Booked = false
+                });
 
-            var rooms = roomService.GetRooms();
+                roomService.DeleteRoom(addedRoomId);
 
-            Assert.AreEqual(0, rooms.Count);
+                var rooms = roomService.GetRooms();
 
-            db.Database.EnsureDeleted();
-            db.Dispose();
+                Assert.AreEqual(0, rooms.Count);
+            }
         }
     }
 }

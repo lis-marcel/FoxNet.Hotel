@@ -9,7 +9,7 @@ namespace FoxNet.Hotel.BO.Test
     [TestClass]
     public class DbStorageBOTest
     {
-        [TestMethod]
+        /*[TestMethod]
         public void TestDbConstructor()
         {
             var db = new DbStorage.DbStorage();
@@ -19,6 +19,6 @@ namespace FoxNet.Hotel.BO.Test
             Assert.AreEqual(true, dbCreated);
 
             db.Database.EnsureDeleted();
-        }
+        }*/
     }
 }
