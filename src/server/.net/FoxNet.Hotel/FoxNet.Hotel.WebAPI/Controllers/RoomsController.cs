@@ -1,8 +1,10 @@
 ﻿using FoxNet.Hotel.Common;
 using FoxNet.Hotel.Service;
 using FoxNet.Hotel.Service.DTO;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.NetworkInformation;
 
 namespace FoxNet.Hotel.WebAPI.Controllers
 {
