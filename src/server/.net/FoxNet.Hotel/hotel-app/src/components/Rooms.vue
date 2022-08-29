@@ -1,40 +1,52 @@
 <template>
-    <div>
-        <h1>Lisi hotel</h1>
-        <button @click="fetchRooms">fetch data</button>
+    <h1>FN-Rooms</h1><br>
+
+    <div v-for="room in Rooms" v-bind:key="room.id" class="room__container">
+        <h2> {{ room.number }} </h2>
     </div>
 </template>
 
 <script lang="ts">
 import Consts from "../consts";
-import { ref, computed, onMounted } from "vue"; 
 export default {
+
     data() {
         return {
-            rooms: {
-                number: null,
-                bedsAmount: null,
-                price: null,
-                bathroom: null,
-                booked: null
-            }
+            Rooms: []
         }
     },
 
     methods: {
-        fetchRooms: function() {
-            fetch(Consts.API.concat('rooms'), {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Methods': 'GET',
-                    'Access-Control-Allow-Origin': 'https://localhost:5001/api',
-                }
-            })
+        fetchData: function() {
+            const URI = Consts.API.concat('rooms');
+            const headers = {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Methods': 'GET',
+                'Access-Control-Allow-Origin': `${URI}`
+            }
+
+            fetch(URI, { headers })
             .then(response => response.json())
-            .then((data) => data.rooms)
-            .catch(error => console.error)
+            
+            .then((data) => (this.Rooms = data))
+
+            .catch(error => console.log(error));
         }
+    },
+
+    mounted() {
+        this.fetchData();
     }
+
 }
 
 </script>
+
+<style scoped>
+    .room__container {
+        text-align: center;
+        background-color: rgb(133, 133, 133);
+        margin: 1em;
+        padding: 1em;
+    }
+</style>
