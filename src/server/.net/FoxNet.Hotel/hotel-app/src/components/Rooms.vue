@@ -11,6 +11,7 @@ import Consts from "../consts";
 export default {
 
     data() {
+        name: 'Rooms'
         return {
             Rooms: []
         }
