@@ -4,11 +4,13 @@ import Rooms from "./components/Rooms.vue";
 import Menu from "./components/Menu.vue";
 import Register from "./components/Register.vue";
 import Login from "./components/Login.vue";
+import Account from "./components/Account.vue";
 </script>
 
 <template>
   <!-- <Menu /> -->
-  <Register />
+  <!-- <Register /> -->
   <!-- <Login /> -->
+  <Account />
   <!--<Rooms />-->
 </template>
