@@ -26,14 +26,17 @@
                     <div class="row mt-3">
                         <div class="col-md-6"><label class="labels">Account Type</label><p>User</p></div>
                     </div>
-                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-danger profile-button" type="button">Log Out</button>
+                        <button class="btn btn-primary profile-button" type="button">Save Profile</button>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-between align-items-center experience"><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Wallet</span></div><br>
-                    <div class="col-md-12"><label class="labels">Value</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-                    <div class="col-md-12"><label class="labels">Add Funds</label><input type="number" class="form-control" placeholder="additional details" value=""></div>
+                    <div class="col-md-12"><label class="labels">Value</label><input type="text" class="form-control" placeholder="value" value=""></div> <br>
+                    <div class="col-md-12"><label class="labels">Add Funds</label><input type="number" class="form-control" placeholder="value" value=""></div>
                 </div>
             </div>
         </div>
