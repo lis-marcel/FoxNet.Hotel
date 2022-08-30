@@ -4,6 +4,7 @@
     <div v-for="room in Rooms" v-bind:key="room.id" class="room__container">
         <h2> {{ room.number }} </h2>
     </div>
+
 </template>
 
 <script lang="ts">
