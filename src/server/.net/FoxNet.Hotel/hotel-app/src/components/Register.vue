@@ -10,32 +10,32 @@
                             <h2 class="text-uppercase text-center mb-5">Create an account</h2>
                                 <form>
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
+                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="userData.name"/>
                                         <label class="form-label" for="form3Example1cg">Your Name</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
+                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="userData.surname"/>
                                         <label class="form-label" for="form3Example1cg">Your Surname</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="date" id="form3Example1cg" class="form-control form-control-lg" />
+                                        <input type="date" id="form3Example1cg" class="form-control form-control-lg" v-model="userData.birthday"/>
                                         <label class="form-label" for="form3Example1cg">Birthday</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="form3Example3cg" class="form-control form-control-lg" />
+                                        <input type="email" id="form3Example3cg" class="form-control form-control-lg" v-model="userData.email"/>
                                         <label class="form-label" for="form3Example3cg">Your Email</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
+                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="userData.phone"/>
                                         <label class="form-label" for="form3Example1cg">Phone Number</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
+                                        <input type="password" id="form3Example4cg" class="form-control form-control-lg" v-model="userData.password"/>
                                         <label class="form-label" for="form3Example4cg">Password</label>
                                     </div>
 
@@ -44,22 +44,22 @@
                                         <label class="form-label" for="form3Example4cdg">Repeat your password</label>
                                     </div>
 
-                                    <div class="form-check d-flex justify-content-center mb-5">
+                                    <!-- <div class="form-check d-flex justify-content-center mb-5">
                                         <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
                                         <label class="form-check-label" for="form2Example3g">
                                             I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
                                         </label>
-                                    </div>
+                                    </div> -->
 
                                     <div class="d-flex justify-content-center">
-                                        <button type="button"
+                                        <button type="button" @click="addUser()"
                                             class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
                                             Register
                                         </button>
                                     </div>
 
-                                    <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!"
-                                        class="fw-bold text-body"><u>Login here</u></a>
+                                    <p class="text-center text-muted mt-5 mb-0">Have already an account?
+                                        <router-link to="/">Login here</router-link>
                                     </p>
                                 </form>
                             </div>
@@ -72,5 +72,31 @@
 </template>
 
 <script lang="ts">
-    export default {}
+import axios from "axios";
+import Consts from "../consts";
+
+    export default {
+        data() {
+            return {
+                userData: {
+                    name: null,
+                    surname: null,
+                    birthday: null,
+                    email: null,
+                    password: null,
+                    phone: null
+                }
+            }
+        },
+
+        methods: {
+            addUser() {
+                const URI = Consts.API.concat('users/add')
+
+                axios.post(URI, this.userData)
+                .then(response => console.log(response))
+                .catch(error => console.log(error))
+            }
+        }
+    }
 </script>

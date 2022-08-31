@@ -25,8 +25,8 @@
                                         </button>
                                     </div>
 
-                                    <p class="text-center text-muted mt-5 mb-0">Don't have account? <a href="#!"
-                                        class="fw-bold text-body"><u>Sign up here</u></a>
+                                    <p class="text-center text-muted mt-5 mb-0">Don't have account? 
+                                        <router-link to="/register">Sign up here</router-link>
                                     </p>
                                 </form>
                             </div>
