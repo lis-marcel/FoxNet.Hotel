@@ -29,9 +29,7 @@ export default {
 
             fetch(URI, { headers })
             .then(response => response.json())
-            
             .then((data) => (this.Rooms = data))
-
             .catch(error => console.log(error));
         }
     },

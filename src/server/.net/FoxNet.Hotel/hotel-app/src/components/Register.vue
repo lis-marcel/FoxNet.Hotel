@@ -10,32 +10,32 @@
                             <h2 class="text-uppercase text-center mb-5">Create an account</h2>
                                 <form>
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="userData.name"/>
+                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="registerData.name"/>
                                         <label class="form-label" for="form3Example1cg">Your Name</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="userData.surname"/>
+                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="registerData.surname"/>
                                         <label class="form-label" for="form3Example1cg">Your Surname</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="date" id="form3Example1cg" class="form-control form-control-lg" v-model="userData.birthday"/>
+                                        <input type="date" id="form3Example1cg" class="form-control form-control-lg" v-model="registerData.birthday"/>
                                         <label class="form-label" for="form3Example1cg">Birthday</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="form3Example3cg" class="form-control form-control-lg" v-model="userData.email"/>
+                                        <input type="email" id="form3Example3cg" class="form-control form-control-lg" v-model="registerData.email"/>
                                         <label class="form-label" for="form3Example3cg">Your Email</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="userData.phone"/>
+                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="registerData.phone"/>
                                         <label class="form-label" for="form3Example1cg">Phone Number</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="form3Example4cg" class="form-control form-control-lg" v-model="userData.password"/>
+                                        <input type="password" id="form3Example4cg" class="form-control form-control-lg" v-model="registerData.password"/>
                                         <label class="form-label" for="form3Example4cg">Password</label>
                                     </div>
 
@@ -78,7 +78,7 @@ import Consts from "../consts";
     export default {
         data() {
             return {
-                userData: {
+                registerData: {
                     name: null,
                     surname: null,
                     birthday: null,
@@ -93,7 +93,7 @@ import Consts from "../consts";
             addUser() {
                 const URI = Consts.API.concat('users/add')
 
-                axios.post(URI, this.userData)
+                axios.post(URI, this.registerData)
                 .then(response => console.log(response))
                 .catch(error => console.log(error))
             }
