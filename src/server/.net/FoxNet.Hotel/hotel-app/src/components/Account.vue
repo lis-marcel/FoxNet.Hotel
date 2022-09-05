@@ -48,12 +48,10 @@
 import axios from   "axios";
 import { onMounted } from 'vue';
 import Consts from '../consts';
-
     export default {
         data() {
             return {
                 additonalMoney: null,
-
                 userData: {
                     id: null,
                     name: null,
@@ -65,7 +63,7 @@ import Consts from '../consts';
                 }
             }
         },
-
+        
         methods: {
             FetchData() {
                 const URI = Consts.API.concat(`users/7`)
@@ -74,27 +72,20 @@ import Consts from '../consts';
                     'Access-Control-Allow-Methods': 'GET',
                     'Access-Control-Allow-Origin': `${URI}`
                 }
-
                 fetch(URI, { headers })
                 .then(response => response.json())
                 .then(data => (this.userData = data))
                 .catch(error => console.error(error))
             },
-
             SendData() {
                 const URI = Consts.API.concat('users/edit')
-
                 axios.post(URI, this.userData)
                 .then(response => console.log(response))
                 .catch(error => console.log(error))
             },
-
             TransferMoney() {
                 const URI = Consts.API.concat('users/money')
-
                 this.userData.money += this.additionalMoney;
-
-                console.log(this.userData.money)
 
                 axios.post(URI, this.additionalMoney)
                 .then(response => console.log(response))
