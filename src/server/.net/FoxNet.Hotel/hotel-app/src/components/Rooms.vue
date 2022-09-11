@@ -1,51 +1,50 @@
 <template>
-    <h1>FN-Rooms</h1><br>
-
-    <div v-for="room in Rooms" v-bind:key="room.id" class="room__container">
-        <h2> {{ room.number }} </h2>
+    <h2>items {{ cartItemsCounter }}</h2>
+    
+    <div class="card" style="width: 18rem;" v-for="room in Rooms" v-bind:key="room.id">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title"> {{ room.number }} </h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Beds: {{ room.bedsAmount }} </li>
+            <li class="list-group-item">Bathroom: {{ room.bathroom }} </li>
+            <li class="list-group-item">Price: {{ room.price }}$</li>
+        </ul>
+        <div class="card-body">
+            <button type="button" class="btn btn-outline-success" @click="addToCart(room)">To Cart</button>
+        </div>
     </div>
 
 </template>
 
 <script lang="ts">
-import Consts from "../consts";
+import { useRooms } from "../data/rooms";
+import { useCart } from "../composables/useCart";
+
 export default {
 
-    data() {
-        name: 'Rooms'
+    setup(props: any, context: any) {
+        const { fetchRooms, Rooms } = useRooms();
+        const { addToCart, cartItemsCounter, CartItems } = useCart();
+
+        fetchRooms();
+
         return {
-            Rooms: []
-        }
+            Rooms,
+            addToCart,
+            cartItemsCounter,
+        };
     },
-
-    methods: {
-        fetchData: function() {
-            const URI = Consts.API.concat('rooms');
-            const headers = {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Methods': 'GET',
-                'Access-Control-Allow-Origin': `${URI}`
-            }
-
-            fetch(URI, { headers })
-            .then(response => response.json())
-            .then((data) => (this.Rooms = data))
-            .catch(error => console.log(error));
-        }
-    },
-
-    mounted() {
-        this.fetchData();
-    }
-
 }
 
 </script>
 
 <style scoped>
-    .room__container {
+    .card {
+        display: inline-block;
         text-align: center;
-        background-color: rgb(133, 133, 133);
         margin: 1em;
         padding: 1em;
     }
