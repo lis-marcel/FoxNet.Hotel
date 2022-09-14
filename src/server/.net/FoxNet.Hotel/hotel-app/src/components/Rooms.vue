@@ -1,5 +1,4 @@
 <template>
-    <h2>items {{ cartItemsCounter }}</h2>
     
     <div class="card" style="width: 18rem;" v-for="room in Rooms" v-bind:key="room.id">
         <img class="card-img-top" src="..." alt="Card image cap">
@@ -27,7 +26,7 @@ export default {
 
     setup(props: any, context: any) {
         const { fetchRooms, Rooms } = useRooms();
-        const { addToCart, cartItemsCounter, CartItems } = useCart();
+        const { addToCart, cartItemsCounter } = useCart();
 
         fetchRooms();
 

@@ -17,20 +17,7 @@
                         <h6 class="text-muted">Apartment</h6>
                         <h6 class="text-black mb-0">Nr {{ item.number }} </h6>
                       </div>
-                      <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                        <button class="btn btn-link px-2"
-                          onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                          <i class="fas fa-minus"></i>
-                        </button>
-  
-                        <input id="form1" min="0" name="quantity" value="1" type="number"
-                          class="form-control form-control-sm" />
-  
-                        <button class="btn btn-link px-2"
-                          onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                          <i class="fas fa-plus"></i>
-                        </button>
-                      </div>
+                      
                       <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                         <h6 class="mb-0">{{ item.price }}$</h6>
                       </div>
@@ -56,7 +43,7 @@
                     <div class="d-flex justify-content-between mb-4">
                       <h5 class="text-uppercase" v-if="CartItems.length <= 1">item: {{ cartItemsCounter }}</h5>
                       <h5 class="text-uppercase" v-else>items: {{ cartItemsCounter }}</h5>
-                      <h5>  </h5>
+                      <h5> {{ cartItemsValue }}$</h5>
                     </div>
   
                     <h5 class="text-uppercase mb-3">Give code</h5>
@@ -72,7 +59,7 @@
   
                     <div class="d-flex justify-content-between mb-5">
                       <h5 class="text-uppercase">Total price</h5>
-                      <h5>€ 44.00</h5>
+                      <h5>{{ cartItemsValue }}$</h5>
                     </div>
   
                     <button type="button" class="btn btn-dark btn-block btn-lg"
@@ -90,16 +77,21 @@
 
 <script lang="ts">
 import { useCart } from '@/composables/useCart';
+import { onMounted } from 'vue';
 
   export default  {
 
     setup(props: any, context: any) {
-      const { CartItems, cartItemsCounter } = useCart();
+      const { CartItems, cartItemsCounter, cartItemsValue, removeFromCart } = useCart();
+
+      console.log(cartItemsValue)
 
       return {
         CartItems,
         cartItemsCounter,
+        cartItemsValue,
+        removeFromCart,
       }
-    }
+    },
   }
 </script>
