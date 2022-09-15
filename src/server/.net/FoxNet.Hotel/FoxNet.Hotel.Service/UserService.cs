@@ -25,10 +25,11 @@ namespace FoxNet.Hotel.Service
                 Name = userData.Name,
                 Surname = userData.Surname,
                 Birth = userData.Birth,
+                Phone = userData.Phone,
+                Email = userData.Email,
                 AccountType = (Type)userData.AccountType,
                 Password = userData.Password,
                 Money = userData.Money,
-                Phone = userData.Phone
             };
 
             var userId = db.Users.Add(u);
@@ -44,6 +45,8 @@ namespace FoxNet.Hotel.Service
             user.Name = userData.Name;
             user.Surname = userData.Surname;
             user.Password = userData.Password;
+            user.Phone = userData.Phone;
+            user.Email = userData.Email;
 
             db.SaveChanges();
         }
@@ -59,6 +62,7 @@ namespace FoxNet.Hotel.Service
                 Surname = user.Surname,
                 Birth = user.Birth,
                 Phone = user.Phone,
+                Email = user.Email,
                 AccountType = (DTO.Type)user.AccountType,
                 Password = user.Password,
                 Money = user.Money
