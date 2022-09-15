@@ -52,7 +52,7 @@ namespace FoxNet.Hotel.Service
             return new RoomData()
             {
                 Id = room.Id,
-                BedsAmount = room.BedsAmount,
+                BedsAmount = room.Number,
                 Number = room.Number,
                 Bathroom = room.Bathroom,
                 Price = room.Price,
