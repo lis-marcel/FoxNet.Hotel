@@ -81,10 +81,8 @@
 
 <script lang="ts">
 import { useCart } from '@/composables/useCart';
-import { onMounted } from 'vue';
 
   export default  {
-
     setup(props: any, context: any) {
       const { CartItems, cartItemsCounter, cartItemsValue, removeFromCart } = useCart();
 

@@ -16,7 +16,7 @@ namespace FoxNet.Hotel
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Surname { get; set; }
-        public DateTime Birth { get; set; }
+        public string? Birth { get; set; }
         public string? Phone { get; set; }
         public string? Email { get; set; }
         public Type AccountType { get; set; }
