@@ -86,8 +86,6 @@ import { useCart } from '@/composables/useCart';
     setup(props: any, context: any) {
       const { CartItems, cartItemsCounter, cartItemsValue, removeFromCart } = useCart();
 
-      console.log(cartItemsValue)
-
       return {
         CartItems,
         cartItemsCounter,
