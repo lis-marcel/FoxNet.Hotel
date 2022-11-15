@@ -24,7 +24,6 @@ namespace FoxNet.Hotel.Service
                 Number = roomData.Number,
                 BedsAmount = roomData.BedsAmount,
                 Bathroom = roomData.Bathroom,
-                Booked = roomData.Booked,
                 Price = roomData.Price,
             };
 
@@ -56,7 +55,6 @@ namespace FoxNet.Hotel.Service
                 Number = room.Number,
                 Bathroom = room.Bathroom,
                 Price = room.Price,
-                Booked = room.Booked
             };
         }
 
@@ -67,7 +65,6 @@ namespace FoxNet.Hotel.Service
                 Id = r.Id,
                 BedsAmount = r.BedsAmount,
                 Number = r.Number,
-                Booked = r.Booked,
                 Price = r.Price,
                 Bathroom = r.Bathroom,
             }).ToList();
@@ -77,7 +74,6 @@ namespace FoxNet.Hotel.Service
         {
             var room = db.Rooms.Single(r => r.Id == roomData.Id);
 
-            room.Booked = roomData.Booked;
             db.SaveChanges();
         }
 

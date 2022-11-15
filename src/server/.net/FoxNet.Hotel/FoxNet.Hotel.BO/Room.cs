@@ -9,6 +9,5 @@ namespace FoxNet.Hotel
         public string? BedsAmount { get; set; }
         public string? Price { get; set; }
         public bool Bathroom { get; set; }
-        public bool Booked { get; set; }
     }
 }
