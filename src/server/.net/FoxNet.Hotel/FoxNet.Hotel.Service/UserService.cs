@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FoxNet.Hotel.BO;
-using FoxNet.Hotel.Common;
+﻿using FoxNet.Hotel.Common;
 using FoxNet.Hotel.Service.DTO;
+using FoxNet.Hotel.Service.ClassConverter;
 
 namespace FoxNet.Hotel.Service
 {
@@ -20,69 +15,42 @@ namespace FoxNet.Hotel.Service
 
         public int AddUser(UserData userData)
         {
-            var u = new User()
-            {
-                Name = userData.Name,
-                Surname = userData.Surname,
-                Birth = userData.Birth,
-                AccountType = (Type)userData.AccountType,
-                Password = userData.Password,
-                Money = userData.Money,
-                Phone = userData.Phone
-            };
+            var u = ConvertUser.UserDataToUser(userData);
 
             var userId = db.Users.Add(u);
             db.SaveChanges();
 
-            return userId.Entity.Id;
+            return userId.Entity.UserId;
         }
 
         public void EditUser(UserData userData)
         {
-            var user = db.Users.Single(u => u.Id == userData.Id);
+            var user = db.Users.Single(u => u.UserId == userData.UserId);
 
-            user.Name = userData.Name;
-            user.Surname = userData.Surname;
-            user.Password = userData.Password;
+            var newUserData = ConvertUser.UserDataToUser(userData);
+
+            user = newUserData;
 
             db.SaveChanges();
         }
 
         public UserData GetUser(int userId)
         {
-            var user = db.Users.Single(u => u.Id == userId);
+            var user = db.Users.Single(u => u.UserId == userId);
 
-            return new UserData()
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Surname = user.Surname,
-                Birth = user.Birth,
-                Phone = user.Phone,
-                AccountType = (DTO.Type)user.AccountType,
-                Password = user.Password,
-                Money = user.Money
-            };
+            return ConvertUser.UserToUserData(user);
         }
 
         public IList<UserData> GetUsers() 
         {
-            return db.Users.Select(u => new UserData()
-            {
-                Id = u.Id,
-                Name = u.Name,
-                Surname = u.Surname,
-                Birth = u.Birth,
-                AccountType = (DTO.Type)u.AccountType,
-                Password = u.Password,
-                Money = u.Money,
-                Phone = u.Phone
-            }).ToList();
+            return db.Users.Select(u => 
+                ConvertUser.UserToUserData(u))
+                .ToList();
         }
 
         public void ManageMoney(UserData userData) 
         {
-            var user = db.Users.SingleOrDefault(u => u.Id == userData.Id);
+            var user = db.Users.SingleOrDefault(u => u.UserId == userData.UserId);
 
             if (user != null)
             {
@@ -93,7 +61,7 @@ namespace FoxNet.Hotel.Service
 
         public void DeleteUser(int userId) 
         {
-            var user = db.Users.Single(u => u.Id == userId);
+            var user = db.Users.Single(u => u.UserId == userId);
 
             db.Users.Remove(user);
             db.SaveChanges();

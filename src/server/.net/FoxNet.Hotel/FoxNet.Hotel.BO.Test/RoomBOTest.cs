@@ -1,4 +1,5 @@
 ﻿using FoxNet.Hotel.BO;
+using FoxNet.Hotel.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
@@ -8,20 +9,22 @@ namespace FoxNet.Hotel.BO.Test
     [TestClass]
     public class RoomBOTest
     {
+        #region Test objects
         Room room = new Room()
         {
-            Id = 1,
-            Number = 101,
-            BedsAmount = 3,
-            Price = 149.99F,
+            RoomId = 1,
+            RoomNumber = "101",
+            BedsAmount = "3",
+            Price = "149.99D",
             Bathroom = true,
-            Booked = true
         };
+        #endregion
 
+        #region Test methods
         /*[TestMethod]
         public void CheckRoomNumber()
         {
-            var db = new DbStorage.DbStorage();
+            var db = new DbStorage();
             db.Database.EnsureCreated();
 
             db.Rooms.Add(room);
@@ -38,7 +41,7 @@ namespace FoxNet.Hotel.BO.Test
         public void CheckChangingBedsAmount()
         {
             var decreaseBeds = 2;
-            var db = new DbStorage.DbStorage();
+            var db = new DbStorage();
             db.Database.EnsureCreated();
 
             db.Rooms.Add(room);
@@ -61,7 +64,7 @@ namespace FoxNet.Hotel.BO.Test
         [TestMethod]
         public void ChangeBookedMarker()
         {
-            var db = new DbStorage.DbStorage();
+            var db = new DbStorage();
             db.Database.EnsureCreated();
 
             db.Rooms.Add(room);
@@ -77,5 +80,6 @@ namespace FoxNet.Hotel.BO.Test
 
             db.Database.EnsureDeleted();
         }*/
+        #endregion
     }
 }

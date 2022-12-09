@@ -9,13 +9,13 @@ namespace FoxNet.Hotel.WebAPI.Test
     {
         private UserData user = new UserData()
         {
-            Name = "Jan",
-            Surname = "Kowalski",
-            Birth = new DateTime(1920, 1, 14),
+            UserName = "Jan",
+            UserSurname = "Kowalski",
+            Birth = new DateOnly(1920, 1, 14).ToString(),
             AccountType = Service.DTO.Type.Worker,
-            Money = 700.89F,
+            Money = 700.89F.ToString(),
             Password = "123",
-            Phone = 123456689
+            Phone = 123456689.ToString()
         };
 
         [TestMethod]

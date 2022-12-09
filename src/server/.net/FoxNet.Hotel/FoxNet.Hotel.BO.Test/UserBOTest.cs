@@ -8,26 +8,26 @@ namespace FoxNet.Hotel.BO.Test
         #region Test Obejcts
         User firstUser = new User()
         {
-            Id = 1,
-            Name = "Jan",
-            Surname = "Kowalski",
-            Birth = new DateTime(1970, 2, 15),
+            UserId = 1,
+            UserName = "Jan",
+            UserSurname = "Kowalski",
+            Birth = new DateTime(1970, 2, 15).ToString(),
             AccountType = Type.Admin,
-            Phone = 123456789,
+            Phone = "123456789",
             Password = "okok123",
-            Money = 345.01F
+            Money = "345.01D"
         };
 
         User secondUser = new User()
         {
-            Id = 1,
-            Name = "Jan",
-            Surname = "Kowalski",
-            Birth = new DateTime(1970, 2, 15),
+            UserId = 1,
+            UserName = "Jan",
+            UserSurname = "Kowalski",
+            Birth = new DateTime(1970, 2, 15).ToString(),
             AccountType = Type.Admin,
-            Phone = 123456789,
+            Phone = "123456789",
             Password = "okok123",
-            Money = 345.01F
+            Money = "345.01D"
         };
         #endregion
 
@@ -35,7 +35,7 @@ namespace FoxNet.Hotel.BO.Test
         [TestMethod]
         public void AssertNameIsCorrectTest()
         {
-            Assert.AreEqual("Jan", firstUser.Name);
+            Assert.AreEqual("Jan", firstUser.UserName);
         }
 
         [TestMethod]

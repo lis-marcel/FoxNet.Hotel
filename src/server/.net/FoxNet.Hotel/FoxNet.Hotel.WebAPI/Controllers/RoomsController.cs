@@ -1,8 +1,10 @@
 ﻿using FoxNet.Hotel.Common;
 using FoxNet.Hotel.Service;
 using FoxNet.Hotel.Service.DTO;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.NetworkInformation;
 
 namespace FoxNet.Hotel.WebAPI.Controllers
 {
@@ -46,10 +48,10 @@ namespace FoxNet.Hotel.WebAPI.Controllers
         }
 
         [HttpPost]
-        [Route("/api/rooms/state")]
-        public async Task SetRoomState(RoomData roomData)
+        [Route("/api/rooms/search")]
+        public IList<Room> GetFilteredRooms([FromBody] FiltersData roomsFilters)
         {
-            _service.SetRoomState(roomData);
+            return _service.GetFilteredRooms(roomsFilters);
         }
 
         [HttpPost]
