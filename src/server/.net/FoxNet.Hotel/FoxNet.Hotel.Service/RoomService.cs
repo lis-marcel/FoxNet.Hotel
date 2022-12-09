@@ -1,11 +1,9 @@
-﻿
-    using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FoxNet.Hotel.Service.DTO;
+﻿using FoxNet.Hotel.Service.DTO;
+using FoxNet.Hotel.Service.Filters;
 using FoxNet.Hotel.Common;
+using Microsoft.EntityFrameworkCore;
+using FoxNet.Hotel.Service.ClassConverter;
+using Microsoft.Data.Sqlite;
 
 namespace FoxNet.Hotel.Service
 {
@@ -21,7 +19,7 @@ namespace FoxNet.Hotel.Service
         {
             var r = new Room()
             {
-                Number = roomData.Number,
+                RoomNumber = roomData.RoomNumber,
                 BedsAmount = roomData.BedsAmount,
                 Bathroom = roomData.Bathroom,
                 Price = roomData.Price,
@@ -30,29 +28,29 @@ namespace FoxNet.Hotel.Service
             var roomId = db.Rooms.Add(r);
             db.SaveChanges();
 
-            return roomId.Entity.Id;
+            return roomId.Entity.RoomId;
         }
 
         public void EditRoom(RoomData roomData)
         {
-            var room = db.Rooms.Single(r => r.Id == roomData.Id);
+            var room = db.Rooms.Single(r => r.RoomId == roomData.RoomId);
 
-            room.Number = roomData.Number;
-            room.BedsAmount = roomData.BedsAmount;
-            room.Price = roomData.Price;
+            var editedRoomData = ConvertRoom.RoomDataToRoom(roomData);
+
+            room = editedRoomData;
 
             db.SaveChanges();
         }
 
         public RoomData GetRoom(int roomId)
         {
-            var room = db.Rooms.Single(r => r.Id == roomId);
+            var room = db.Rooms.Single(r => r.RoomId == roomId);
 
             return new RoomData()
             {
-                Id = room.Id,
-                BedsAmount = room.Number,
-                Number = room.Number,
+                RoomId = room.RoomId,
+                BedsAmount = room.BedsAmount,
+                RoomNumber = room.RoomNumber,
                 Bathroom = room.Bathroom,
                 Price = room.Price,
             };
@@ -62,24 +60,22 @@ namespace FoxNet.Hotel.Service
         {
             return db.Rooms.Select(r => new RoomData()
             {
-                Id = r.Id,
+                RoomId = r.RoomId,
                 BedsAmount = r.BedsAmount,
-                Number = r.Number,
+                RoomNumber = r.RoomNumber,
                 Price = r.Price,
                 Bathroom = r.Bathroom,
             }).ToList();
         }
 
-        public void SetRoomState(RoomData roomData)
+        public IList<Room> GetFilteredRooms(DTO.FiltersData roomsFilters)
         {
-            var room = db.Rooms.Single(r => r.Id == roomData.Id);
-
-            db.SaveChanges();
+            return Filters.FiltersQueries.FilterRooms(db, roomsFilters);
         }
 
         public void DeleteRoom(int roomId)
         {
-            var room = db.Rooms.Single(r => r.Id == roomId);
+            var room = db.Rooms.Single(r => r.RoomId == roomId);
 
             db.Rooms.Remove(room);
             db.SaveChanges();

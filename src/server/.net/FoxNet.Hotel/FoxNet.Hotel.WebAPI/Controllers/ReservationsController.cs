@@ -2,8 +2,6 @@
 using FoxNet.Hotel.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using FoxNet.Hotel.Common;
-using FoxNet.Hotel.Service;
 using FoxNet.Hotel.Service.DTO;
 
 namespace FoxNet.Hotel.WebAPI.Controllers
@@ -34,7 +32,7 @@ namespace FoxNet.Hotel.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("/api/reservations/{id}")]
+        [Route("/api/reservations")]
         public async Task<IList<ReservationData>> GetReservaions()
         {
             return _service.GetReservations();

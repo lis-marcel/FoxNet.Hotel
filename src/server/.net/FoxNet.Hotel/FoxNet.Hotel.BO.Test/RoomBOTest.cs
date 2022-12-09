@@ -12,12 +12,11 @@ namespace FoxNet.Hotel.BO.Test
         #region Test objects
         Room room = new Room()
         {
-            Id = 1,
-            Number = "101",
+            RoomId = 1,
+            RoomNumber = "101",
             BedsAmount = "3",
             Price = "149.99D",
             Bathroom = true,
-            Booked = true
         };
         #endregion
 

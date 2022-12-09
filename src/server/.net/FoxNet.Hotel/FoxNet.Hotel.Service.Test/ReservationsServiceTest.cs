@@ -14,9 +14,9 @@ namespace FoxNet.Hotel.Service.Test
         #region Test objects
         UserData testUserObject = new UserData()
         {
-            Name = "Jan",
-            Surname = "Kowalski",
-            Birth = new DateTime(1920, 1, 14),
+            UserName = "Jan",
+            UserSurname = "Kowalski",
+            Birth = new DateOnly(1920, 1, 14),
             AccountType = DTO.Type.Worker,
             Money = "700.89D",
             Password = "123",
@@ -25,11 +25,10 @@ namespace FoxNet.Hotel.Service.Test
 
         RoomData testRoomObject = new RoomData()
         {
-            Number = "111",
+            RoomNumber = "111",
             BedsAmount = "3",
             Price = "300.45D",
             Bathroom = true,
-            Booked = false
         };
         #endregion
 
@@ -48,8 +47,8 @@ namespace FoxNet.Hotel.Service.Test
 
                 reservationService.MakeReservation(new DTO.ReservationData()
                 {
-                    FirstDay = new DateTime(2022, 1, 19),
-                    LastDay = new DateTime(2022, 1, 25),
+                    FirstDay = new DateOnly(2022, 1, 19),
+                    LastDay = new DateOnly(2022, 1, 25),
                     RoomId = roomId,
                     UserId = userId
                 });
@@ -74,8 +73,8 @@ namespace FoxNet.Hotel.Service.Test
 
                 var reservationId = reservationService.MakeReservation(new DTO.ReservationData()
                 {
-                    FirstDay = new DateTime(2022, 1, 19),
-                    LastDay = new DateTime(2022, 1, 25),
+                    FirstDay = new DateOnly(2022, 1, 19),
+                    LastDay = new DateOnly(2022, 1, 25),
                     RoomId = roomId,
                     UserId = userId
                 });

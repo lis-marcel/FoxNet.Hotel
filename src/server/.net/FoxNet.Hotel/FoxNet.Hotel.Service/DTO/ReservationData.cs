@@ -9,8 +9,8 @@ namespace FoxNet.Hotel.Service.DTO
     public class ReservationData
     {
         public int Id { get; set; }
-        public DateTime FirstDay { get; set; }
-        public DateTime LastDay { get; set; }
+        public DateOnly FirstDay { get; set; }
+        public DateOnly LastDay { get; set; }
         public int RoomId { get; set; }
         public int UserId { get; set; }
     }

@@ -15,7 +15,7 @@
                     <div class="row mb-4 d-flex justify-content-between align-items-center" v-for="item in CartItems" v-bind:key="item.id">
                       <div class="col-md-3 col-lg-3 col-xl-3">
                         <h6 class="text-muted">Apartment</h6>
-                        <h6 class="text-black mb-0">Nr {{ item.number }} </h6>
+                        <h6 class="text-black mb-0">Nr {{ item.roomNumber }} </h6>
                       </div>
                       
                       <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">

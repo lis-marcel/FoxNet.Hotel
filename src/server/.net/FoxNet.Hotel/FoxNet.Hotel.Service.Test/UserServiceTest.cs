@@ -12,9 +12,9 @@ namespace FoxNet.Hotel.Service.Test
         #region Test objects
         UserData testUserObject1 = new UserData()
         {
-            Name = "Jan",
-            Surname = "Kowalski",
-            Birth = new DateTime(1920, 1, 14),
+            UserName = "Jan",
+            UserSurname = "Kowalski",
+            Birth = new DateOnly(1920, 1, 14),
             AccountType = DTO.Type.Worker,
             Money = "700.89D",
             Password = "123",
@@ -23,9 +23,9 @@ namespace FoxNet.Hotel.Service.Test
 
         UserData testUserObject2 = new UserData()
         {
-            Name = "Pat",
-            Surname = "Czech",
-            Birth = new DateTime(1999, 11, 19),
+            UserName = "Pat",
+            UserSurname = "Czech",
+            Birth = new DateOnly(1999, 11, 19),
             AccountType = DTO.Type.Client,
             Money = "11.89D",
             Password = "412",
@@ -60,7 +60,7 @@ namespace FoxNet.Hotel.Service.Test
 
                 var foundUser = userService.GetUser(user);
 
-                Assert.AreEqual("Jan", foundUser.Name);
+                Assert.AreEqual("Jan", foundUser.UserName);
             }
         }
 
@@ -95,12 +95,12 @@ namespace FoxNet.Hotel.Service.Test
                 var basicUser = userService.AddUser(testUserObject1);
                 var user = userService.GetUser(basicUser);
 
-                user.Name = "Marcel";
+                user.UserName = "Marcel";
                 userService.EditUser(user);
 
                 var editedUser = userService.GetUser(basicUser);
 
-                Assert.AreEqual("Marcel", editedUser.Name);
+                Assert.AreEqual("Marcel", editedUser.UserName);
             }
         }
 
@@ -112,8 +112,8 @@ namespace FoxNet.Hotel.Service.Test
                 var userService = new UserService(db);
                 var user = userService.AddUser(new DTO.UserData()
                 {
-                    Name = "Pat",
-                    Surname = "Czech",
+                    UserName = "Pat",
+                    UserSurname = "Czech",
                     Money = "11.89D",
                 });
                 db.SaveChanges();

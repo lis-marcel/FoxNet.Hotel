@@ -10,9 +10,9 @@ namespace FoxNet.Hotel
         {
             Console.WriteLine("Initalizing server...");
 
-            var db = DbStorage.GetDefault();
+            DbStorageFactory.GetDefault();
 
-            DbStorage.InsertTestData(db);
+            //DbStorage.InsertTestData(db);
 
             Console.WriteLine("Ended process.");
         }

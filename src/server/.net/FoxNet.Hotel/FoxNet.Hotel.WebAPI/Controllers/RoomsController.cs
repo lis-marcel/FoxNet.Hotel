@@ -48,10 +48,10 @@ namespace FoxNet.Hotel.WebAPI.Controllers
         }
 
         [HttpPost]
-        [Route("/api/rooms/state")]
-        public async Task SetRoomState(RoomData roomData)
+        [Route("/api/rooms/search")]
+        public IList<Room> GetFilteredRooms([FromBody] FiltersData roomsFilters)
         {
-            _service.SetRoomState(roomData);
+            return _service.GetFilteredRooms(roomsFilters);
         }
 
         [HttpPost]
