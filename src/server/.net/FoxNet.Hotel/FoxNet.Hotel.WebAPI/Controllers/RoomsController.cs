@@ -1,5 +1,6 @@
 ﻿using FoxNet.Hotel.Common;
 using FoxNet.Hotel.Service;
+using FoxNet.Hotel.BO;
 using FoxNet.Hotel.Service.DTO;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;

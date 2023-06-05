@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
+using System.Data.SQLite;
 
 namespace FoxNet.Hotel.Common
 {
@@ -40,11 +41,19 @@ namespace FoxNet.Hotel.Common
             var db = new DbStorage();
 
             string basePath = string.Join(@"\", db.DbPath.Split('\\').Take(7));
-            db.DbPath = Path.Combine(basePath, "FoxNet.Hotel.WebAPI/hotel.sqlite");
-            db.AutoRemoveDb = true;
+            db.DbPath = Path.Combine(basePath, "FoxNet.Hotel.WebAPI\\hotel.sqlite");
 
             if (!db.Database.CanConnect())
             {
+                var modelPath = Path.Combine(basePath, "Db\\Models\\DbModel.sql");
+                var dbModel = File.ReadAllText(modelPath);
+
+                var dataPath = Path.Combine(basePath, "Db\\Models\\HotelData.sql");
+                var dataModel = File.ReadAllText(dataPath);
+
+                db.Database.ExecuteSqlRaw(dbModel);
+                db.Database.ExecuteSqlRaw(dataModel);
+
                 Console.WriteLine("Created database.");
             }
 
@@ -52,6 +61,8 @@ namespace FoxNet.Hotel.Common
             {
                 Console.WriteLine("Database already exists!");
             }
+
+            db.SaveChanges();
 
             return db;
         }

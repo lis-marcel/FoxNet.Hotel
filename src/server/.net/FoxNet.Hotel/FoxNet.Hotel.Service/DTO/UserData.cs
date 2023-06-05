@@ -21,6 +21,5 @@ namespace FoxNet.Hotel.Service.DTO
         public string? Email { get; set; }
         public Type AccountType { get; set; }
         public string? Password { get; set; }
-        public string Money { get; set; }
     }
 }

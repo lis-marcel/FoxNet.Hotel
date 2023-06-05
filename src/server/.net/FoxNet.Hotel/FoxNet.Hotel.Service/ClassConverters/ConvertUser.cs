@@ -15,7 +15,6 @@ namespace FoxNet.Hotel.Service.ClassConverter
                 Email = userData.Email,
                 AccountType = (Type)userData.AccountType,
                 Password = userData.Password,
-                Money = userData.Money,
             };
         }
 
@@ -31,7 +30,6 @@ namespace FoxNet.Hotel.Service.ClassConverter
                 Email = user.Email,
                 AccountType = (DTO.Type)user.AccountType,
                 Password = user.Password,
-                Money = user.Money
             };
         }
     }

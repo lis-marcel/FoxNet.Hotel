@@ -1,8 +1,8 @@
 import { ref } from "vue"
-import Consts from "@/consts"
+import Consts from "../consts"
 import axios from "axios";
 
-const fetchDataURI = Consts.API.concat(`users/2`);
+const fetchDataURI = Consts.API.concat(`users/1`);
 const sendDataURI = Consts.API.concat('users/edit');
 
 const headers = {

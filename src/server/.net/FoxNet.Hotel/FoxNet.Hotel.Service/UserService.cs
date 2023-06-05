@@ -23,7 +23,7 @@ namespace FoxNet.Hotel.Service
             return userId.Entity.UserId;
         }
 
-        public void EditUser(UserData userData)
+        public int EditUser(UserData userData)
         {
             var user = db.Users.Single(u => u.UserId == userData.UserId);
 
@@ -31,7 +31,11 @@ namespace FoxNet.Hotel.Service
 
             user = newUserData;
 
+            db.Users.Update(user);
+
             db.SaveChanges();
+
+            return user.UserId;
         }
 
         public UserData GetUser(int userId)
@@ -46,17 +50,6 @@ namespace FoxNet.Hotel.Service
             return db.Users.Select(u => 
                 ConvertUser.UserToUserData(u))
                 .ToList();
-        }
-
-        public void ManageMoney(UserData userData) 
-        {
-            var user = db.Users.SingleOrDefault(u => u.UserId == userData.UserId);
-
-            if (user != null)
-            {
-                user.Money = userData.Money;
-                db.SaveChanges();
-            }
         }
 
         public void DeleteUser(int userId) 

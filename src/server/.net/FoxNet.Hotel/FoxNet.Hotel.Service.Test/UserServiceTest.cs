@@ -16,7 +16,6 @@ namespace FoxNet.Hotel.Service.Test
             UserSurname = "Kowalski",
             Birth = new DateOnly(1920, 1, 14),
             AccountType = DTO.Type.Worker,
-            Money = "700.89D",
             Password = "123",
             Phone = "123456689"
         };
@@ -27,7 +26,6 @@ namespace FoxNet.Hotel.Service.Test
             UserSurname = "Czech",
             Birth = new DateOnly(1999, 11, 19),
             AccountType = DTO.Type.Client,
-            Money = "11.89D",
             Password = "412",
             Phone = "765456689"
         };
@@ -96,43 +94,11 @@ namespace FoxNet.Hotel.Service.Test
                 var user = userService.GetUser(basicUser);
 
                 user.UserName = "Marcel";
-                userService.EditUser(user);
+                var userId = userService.EditUser(user);
 
-                var editedUser = userService.GetUser(basicUser);
+                var editedUser = userService.GetUser(userId);
 
                 Assert.AreEqual("Marcel", editedUser.UserName);
-            }
-        }
-
-        [TestMethod]
-        public void ManageMoneyTest()
-        {
-            using (var db = DbStorage.GetTestInstance())
-            {
-                var userService = new UserService(db);
-                var user = userService.AddUser(new DTO.UserData()
-                {
-                    UserName = "Pat",
-                    UserSurname = "Czech",
-                    Money = "11.89D",
-                });
-                db.SaveChanges();
-
-                var pickedUser = userService.GetUser(user);
-                var parsedMoneyValue = double.Parse(pickedUser.Money);
-
-                Assert.AreEqual(11.89F, parsedMoneyValue);
-
-                var modifyiedParsedMoneyValue = parsedMoneyValue + 30.48D;
-                
-                testUserObject1.Money = modifyiedParsedMoneyValue.ToString();
-
-                userService.ManageMoney(testUserObject1);
-
-                testUserObject1 = userService.GetUser(user);
-
-                var fetchedUserMoneyValue = double.Parse(pickedUser.Money);
-                Assert.AreEqual(42.37F, fetchedUserMoneyValue);
             }
         }
 
