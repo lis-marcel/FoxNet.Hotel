@@ -20,7 +20,7 @@ namespace FoxNet.Hotel.Service
             var r = new Room()
             {
                 RoomNumber = roomData.RoomNumber,
-                BedsAmount = roomData.BedsAmount,
+                Beds = roomData.Beds,
                 Bathroom = roomData.Bathroom,
                 Price = roomData.Price,
             };
@@ -49,7 +49,7 @@ namespace FoxNet.Hotel.Service
             return new RoomData()
             {
                 RoomId = room.RoomId,
-                BedsAmount = room.BedsAmount,
+                Beds = room.Beds,
                 RoomNumber = room.RoomNumber,
                 Bathroom = room.Bathroom,
                 Price = room.Price,
@@ -61,7 +61,7 @@ namespace FoxNet.Hotel.Service
             return db.Rooms.Select(r => new RoomData()
             {
                 RoomId = r.RoomId,
-                BedsAmount = r.BedsAmount,
+                Beds = r.Beds,
                 RoomNumber = r.RoomNumber,
                 Price = r.Price,
                 Bathroom = r.Bathroom,

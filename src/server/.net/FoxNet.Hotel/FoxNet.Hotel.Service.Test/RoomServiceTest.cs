@@ -14,7 +14,7 @@ namespace FoxNet.Hotel.Service.Test
         {
             RoomId = 1,
             RoomNumber = "111",
-            BedsAmount = "1",
+            Beds = "1",
             Price = "100.10D",
             Bathroom = true,
         };
@@ -22,7 +22,7 @@ namespace FoxNet.Hotel.Service.Test
         {
             RoomId = 2,
             RoomNumber = "222",
-            BedsAmount = "2",
+            Beds = "2",
             Price = "200.99D",
             Bathroom = true,
         };
@@ -30,7 +30,7 @@ namespace FoxNet.Hotel.Service.Test
         {
             RoomId = 3,
             RoomNumber = "333",
-            BedsAmount = "3",
+            Beds = "3",
             Price = "300.45D",
             Bathroom = true,
         };
@@ -38,7 +38,7 @@ namespace FoxNet.Hotel.Service.Test
         {
             RoomId = 4,
             RoomNumber = "444",
-            BedsAmount = "3",
+            Beds = "3",
             Price = "440.99D",
             Bathroom = true,
         };
@@ -46,7 +46,7 @@ namespace FoxNet.Hotel.Service.Test
         {
             RoomId = 5,
             RoomNumber = "555",
-            BedsAmount = "4",
+            Beds = "4",
             Price = "101.99D",
             Bathroom = true,
         };
@@ -54,7 +54,7 @@ namespace FoxNet.Hotel.Service.Test
         {
             RoomId = 6,
             RoomNumber = "666",
-            BedsAmount = "4",
+            Beds = "4",
             Price = "101.99D",
             Bathroom = true,
         };
@@ -66,7 +66,6 @@ namespace FoxNet.Hotel.Service.Test
             UserSurname = "Czech",
             Birth = new DateOnly(1999, 11, 19),
             AccountType = DTO.Type.Client,
-            Money = "11.89D",
             Password = "412",
             Phone = "765456689"
         };
@@ -77,7 +76,6 @@ namespace FoxNet.Hotel.Service.Test
             UserSurname = "Mat",
             Birth = new DateOnly(2003, 3, 10),
             AccountType = DTO.Type.Client,
-            Money = "11.11D",
             Password = "123",
             Phone = "765723689"
         };

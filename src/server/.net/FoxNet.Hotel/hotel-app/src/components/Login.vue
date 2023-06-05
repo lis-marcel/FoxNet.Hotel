@@ -6,21 +6,20 @@
                     <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                         <div class="card" style="border-radius: 15px;">
                             <div class="card-body p-5">
-                            <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+                            <h2 class="text-uppercase text-center mb-5">Log in</h2>
                                 <form>
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="form3Example3cg" class="form-control form-control-lg" />
-                                        <label class="form-label" for="form3Example3cg">Your Email</label>
+                                        <input type="email" id="form3Example3cg" class="form-control form-control-lg" v-model="loginData.email"/>
+                                        <label class="form-label" for="form3Example3cg">Email</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
+                                        <input type="password" id="form3Example4cg" class="form-control form-control-lg" v-model="loginData.password"/>
                                         <label class="form-label" for="form3Example4cg">Password</label>
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <button type="button"
-                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+                                        <button type="button" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" @click="loginUser()">
                                             Log in
                                         </button>
                                     </div>
@@ -39,9 +38,34 @@
 </template>
 
 <script lang="ts">
+import Consts from "../consts";
+
     export default {
-        setup() {
-            
+        data() {
+            return {
+                loginData: {
+                    email: null,
+                    password: null,
+                }
+            }
+        },
+
+        methods: {
+            async loginUser() {
+                const URI = Consts.API.concat('users/login')
+
+                const userId = await fetch(URI, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Methods': 'POST',
+                        'Access-Control-Allow-Origin': `${URI}`
+                    },
+                    body: JSON.stringify(this.loginData)
+                })
+
+                console.log(userId)
+            }
         }
     }
 </script>

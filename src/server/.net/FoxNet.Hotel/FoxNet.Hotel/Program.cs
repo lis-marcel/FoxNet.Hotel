@@ -1,6 +1,4 @@
-﻿using System;
-using FoxNet.Hotel.BO;
-using FoxNet.Hotel.Common;
+﻿using FoxNet.Hotel.Common;
 
 namespace FoxNet.Hotel
 {
@@ -8,11 +6,9 @@ namespace FoxNet.Hotel
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Initalizing server...");
+            Console.WriteLine("Creating database...");
 
-            DbStorageFactory.GetDefault();
-
-            //DbStorage.InsertTestData(db);
+            DbStorage.GetDefault();
 
             Console.WriteLine("Ended process.");
         }

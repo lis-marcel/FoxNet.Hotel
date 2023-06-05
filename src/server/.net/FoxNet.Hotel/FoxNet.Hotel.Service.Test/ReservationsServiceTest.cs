@@ -18,7 +18,6 @@ namespace FoxNet.Hotel.Service.Test
             UserSurname = "Kowalski",
             Birth = new DateOnly(1920, 1, 14),
             AccountType = DTO.Type.Worker,
-            Money = "700.89D",
             Password = "123",
             Phone = "123456689"
         };
@@ -26,7 +25,7 @@ namespace FoxNet.Hotel.Service.Test
         RoomData testRoomObject = new RoomData()
         {
             RoomNumber = "111",
-            BedsAmount = "3",
+            Beds = "3",
             Price = "300.45D",
             Bathroom = true,
         };

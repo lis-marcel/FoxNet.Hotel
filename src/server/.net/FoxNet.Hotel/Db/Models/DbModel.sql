@@ -1,0 +1,3 @@
+create table Rooms (RoomId INTEGER PRIMARY KEY AUTOINCREMENT, RoomNumber INTEGER, Beds INTEGER, Price DOUBLE, Bathroom BOOLEAN);
+create table Users (UserId INTEGER PRIMARY KEY AUTOINCREMENT, UserName VARCHAR(20), UserSurname VARCHAR(20), Birth DateOnly, Phone INTEGER, Email VARCHAR(20), AccountType VARCHAR(20), Password VARCHAR(20));
+create table Reservations (ReservationId INTEGER PRIMARY KEY AUTOINCREMENT, FirstDay DateOnly, LastDay DateOnly, RoomId INTEGER, UserId INTEGER);

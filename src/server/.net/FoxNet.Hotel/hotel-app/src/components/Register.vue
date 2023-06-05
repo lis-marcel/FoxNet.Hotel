@@ -10,38 +10,38 @@
                             <h2 class="text-uppercase text-center mb-5">Create an account</h2>
                                 <form>
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="registerData.name"/>
-                                        <label class="form-label" for="form3Example1cg">Your Name</label>
+                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="registerData.UserName"/>
+                                        <label class="form-label" for="form3Example1cg">Name</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="registerData.surname"/>
-                                        <label class="form-label" for="form3Example1cg">Your Surname</label>
+                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="registerData.UserSurname"/>
+                                        <label class="form-label" for="form3Example1cg">Surname</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="date" id="form3Example1cg" class="form-control form-control-lg" v-model="registerData.birthday"/>
+                                        <input type="date" id="form3Example1cg" class="form-control form-control-lg" v-model="registerData.Birth"/>
                                         <label class="form-label" for="form3Example1cg">Birthday</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="form3Example3cg" class="form-control form-control-lg" v-model="registerData.email"/>
-                                        <label class="form-label" for="form3Example3cg">Your Email</label>
+                                        <input type="email" id="form3Example3cg" class="form-control form-control-lg" v-model="registerData.Email"/>
+                                        <label class="form-label" for="form3Example3cg">Email</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="registerData.phone"/>
-                                        <label class="form-label" for="form3Example1cg">Phone Number</label>
+                                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" v-model="registerData.Phone"/>
+                                        <label class="form-label" for="form3Example1cg">Phone</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="form3Example4cg" class="form-control form-control-lg" v-model="registerData.password"/>
+                                        <input type="password" id="form3Example4cg" class="form-control form-control-lg" v-model="registerData.Password"/>
                                         <label class="form-label" for="form3Example4cg">Password</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
-                                        <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+                                        <label class="form-label" for="form3Example4cdg">Repeat password</label>
                                     </div>
 
                                     <!-- <div class="form-check d-flex justify-content-center mb-5">
@@ -72,30 +72,37 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import Consts from "../consts";
 
     export default {
         data() {
             return {
                 registerData: {
-                    name: null,
-                    surname: null,
-                    birthday: null,
-                    email: null,
-                    password: null,
-                    phone: null
+                    UserName: null,
+                    UserSurname: null,
+                    Birth: null,
+                    Email: null,
+                    Password: null,
+                    Phone: null
                 }
             }
         },
 
         methods: {
             addUser() {
+                console.log(this.registerData)
+
                 const URI = Consts.API.concat('users/add')
 
-                axios.post(URI, this.registerData)
-                .then(response => console.log(response))
-                .catch(error => console.log(error))
+                fetch(URI, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Methods': 'POST',
+                        'Access-Control-Allow-Origin': `${URI}`
+                    },
+                    body: JSON.stringify(this.registerData)
+                })
             }
         }
     }

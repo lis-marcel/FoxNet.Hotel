@@ -14,7 +14,7 @@ namespace FoxNet.Hotel.BO.Test
         {
             RoomId = 1,
             RoomNumber = "101",
-            BedsAmount = "3",
+            Beds = "3",
             Price = "149.99D",
             Bathroom = true,
         };

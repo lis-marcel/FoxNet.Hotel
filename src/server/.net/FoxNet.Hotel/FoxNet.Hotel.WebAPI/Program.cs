@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using FoxNet.Hotel.Common;
+using FoxNet.Hotel.BO;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);

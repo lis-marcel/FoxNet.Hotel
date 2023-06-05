@@ -10,7 +10,7 @@ namespace FoxNet.Hotel.Service.ClassConverter
             return new Room()
             {
                 RoomNumber = roomData.RoomNumber,
-                BedsAmount = roomData.BedsAmount,
+                Beds = roomData.Beds,
                 Bathroom = roomData.Bathroom,
                 Price = roomData.Price,
             };
@@ -22,7 +22,7 @@ namespace FoxNet.Hotel.Service.ClassConverter
             {
                 RoomId = room.RoomId,
                 RoomNumber = room.RoomNumber,
-                BedsAmount = room.BedsAmount,
+                Beds = room.Beds,
                 Price = room.Price,
                 Bathroom = room.Bathroom
             };

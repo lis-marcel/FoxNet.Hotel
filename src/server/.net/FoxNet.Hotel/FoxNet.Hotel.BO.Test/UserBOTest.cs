@@ -11,11 +11,10 @@ namespace FoxNet.Hotel.BO.Test
             UserId = 1,
             UserName = "Jan",
             UserSurname = "Kowalski",
-            Birth = new DateTime(1970, 2, 15).ToString(),
+            Birth = new DateOnly(1970, 2, 15),
             AccountType = Type.Admin,
             Phone = "123456789",
             Password = "okok123",
-            Money = "345.01D"
         };
 
         User secondUser = new User()
@@ -23,11 +22,10 @@ namespace FoxNet.Hotel.BO.Test
             UserId = 1,
             UserName = "Jan",
             UserSurname = "Kowalski",
-            Birth = new DateTime(1970, 2, 15).ToString(),
+            Birth = new DateOnly(1970, 2, 15),
             AccountType = Type.Admin,
             Phone = "123456789",
             Password = "okok123",
-            Money = "345.01D"
         };
         #endregion
 
@@ -45,24 +43,6 @@ namespace FoxNet.Hotel.BO.Test
 
             Assert.AreNotEqual(Type.Admin, firstUser.AccountType);
         }
-
-        [TestMethod]
-        public void ChangeMoneyValueTest()
-        {
-            var value = 100.50F;
-            var expectedValue = value + firstUser.Money;
-            firstUser.Money += value;
-
-            Assert.AreEqual(expectedValue, firstUser.Money);
-        }
-
-        /*[TestMethod]
-        [ExpectedException(typeof()]
-        public void CheckIfObejctsDiffers() 
-        { 
-            Assert.AreSame(firstUser, secondUser);
-        }
-        */
         #endregion
     }
 }

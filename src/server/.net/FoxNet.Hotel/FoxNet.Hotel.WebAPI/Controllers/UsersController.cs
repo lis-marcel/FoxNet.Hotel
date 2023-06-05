@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FoxNet.Hotel.Common;
 using FoxNet.Hotel.Service;
 using FoxNet.Hotel.Service.DTO;
+using System.Drawing;
 
 namespace FoxNet.Hotel.WebAPI.Controllers
 {
@@ -31,6 +32,25 @@ namespace FoxNet.Hotel.WebAPI.Controllers
         }
 
         [HttpPost]
+        [Route("/api/users/login")]
+        public async Task<string> LoginUser(LoginData loginData)
+        {
+            var user = _context.Users.SingleOrDefault(u => u.Email == loginData.email);
+
+            if (user != null && user.Password == loginData.password)
+            {
+                string sessionGuid = Guid.NewGuid().ToString();
+
+                return sessionGuid;
+            }
+
+            else
+            {
+                return "Error";
+            }
+        }
+
+        [HttpPost]
         [Route("api/users/edit")]
         public async Task EditUser(UserData userData)
         {
@@ -51,13 +71,6 @@ namespace FoxNet.Hotel.WebAPI.Controllers
         public async Task<UserData> GetUser(int id)
         {
             return _service.GetUser(id);
-        }
-
-        [HttpPost]
-        [Route("/api/users/money")]
-        public async Task MangeMoney(UserData userData)
-        {
-            _service.ManageMoney(userData);
         }
 
         [HttpPost]
