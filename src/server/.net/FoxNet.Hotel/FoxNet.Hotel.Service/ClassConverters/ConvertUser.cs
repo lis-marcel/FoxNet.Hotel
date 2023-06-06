@@ -6,6 +6,11 @@ namespace FoxNet.Hotel.Service.ClassConverter
     {
         public static User UserDataToUser(UserData userData)
         {
+            var givenPassword = userData.Password;
+            var encryptedPassword = PasswordService.EncryptPassword(givenPassword);
+
+            userData.Password = encryptedPassword;
+
             return new User()
             {
                 UserName = userData.UserName,

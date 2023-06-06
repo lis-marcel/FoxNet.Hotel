@@ -37,7 +37,12 @@ namespace FoxNet.Hotel.WebAPI.Controllers
         {
             var user = _context.Users.SingleOrDefault(u => u.Email == loginData.email);
 
-            if (user != null && user.Password == loginData.password)
+            var requestPassword = loginData.password;
+            var userPassword = user.Password;
+
+            bool equal = PasswordService.ComparePasswords(userPassword, requestPassword);
+
+            if (user != null && equal)
             {
                 string sessionGuid = Guid.NewGuid().ToString();
 
