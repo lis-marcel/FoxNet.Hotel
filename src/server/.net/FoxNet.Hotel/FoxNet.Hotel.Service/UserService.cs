@@ -15,6 +15,11 @@ namespace FoxNet.Hotel.Service
 
         public int AddUser(UserData userData)
         {
+            var givenPassword = userData.Password;
+            var encryptedPassword = PasswordService.EncryptPassword(givenPassword);
+
+            userData.Password = encryptedPassword;
+
             var u = ConvertUser.UserDataToUser(userData);
 
             var userId = db.Users.Add(u);

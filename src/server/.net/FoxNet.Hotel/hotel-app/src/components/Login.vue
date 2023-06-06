@@ -54,7 +54,7 @@ import Consts from "../consts";
             async loginUser() {
                 const URI = Consts.API.concat('users/login')
 
-                const userId = await fetch(URI, {
+                const response = await fetch(URI, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ import Consts from "../consts";
                     body: JSON.stringify(this.loginData)
                 })
 
-                console.log(userId)
+                console.log(response)
             }
         }
     }
